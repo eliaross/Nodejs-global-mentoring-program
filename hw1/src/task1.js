@@ -6,6 +6,6 @@ const rl = createInterface({
   terminal: false,
 });
 
-rl.on('line', function (line) {
+rl.on('line', (line) => {
   console.log([...line].reverse().join(''));
 });
