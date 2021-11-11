@@ -11,7 +11,9 @@ class UserDataAccess implements IDataAccess {
 
   async getById(id: string) {
     try {
-      return await this.model.findByPk(id);
+      const user = await this.model.findByPk(id);
+
+      return user;
     } catch (err) {
       console.log(err.message);
     }
@@ -19,7 +21,9 @@ class UserDataAccess implements IDataAccess {
 
   async createUser(user: IUser) {
     try {
-      return await this.model.create(user);
+      const newUser = await this.model.create(user);
+
+      return newUser;
     } catch (err) {
       console.log(err.message);
     }
@@ -27,13 +31,15 @@ class UserDataAccess implements IDataAccess {
 
   async updateUser(id: string, newData: Partial<IUser>) {
     try {
-      return await this.model.update(
+      const updatedUser = await this.model.update(
         { ...newData },
         {
           where: { id },
           returning: true
         }
       );
+
+      return updatedUser;
     } catch (err) {
       console.log(err);
     }
@@ -41,13 +47,15 @@ class UserDataAccess implements IDataAccess {
 
   async deleteUser(id: string) {
     try {
-      return await this.model.update(
+      const deletedUser = await this.model.update(
         { isDeleted: true },
         {
           where: { id },
           returning: true
         }
       );
+
+      return deletedUser;
     } catch (err) {
       console.log(err);
     }
@@ -55,7 +63,7 @@ class UserDataAccess implements IDataAccess {
 
   async findAll(loginSubstring = '', limit = 5) {
     try {
-      return await this.model.findAll({
+      const users = await this.model.findAll({
         limit,
         where: {
           login: {
@@ -63,6 +71,8 @@ class UserDataAccess implements IDataAccess {
           }
         }
       });
+
+      return users;
     } catch (err) {
       console.log(err);
     }
