@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import userDataAccess from '../data-access/userDataAccess';
+import userDataAccess from '../data-access/user.data-access';
 import { IDataAccess, IUser } from '../interfaces/user.interface';
 
 class UserService {
