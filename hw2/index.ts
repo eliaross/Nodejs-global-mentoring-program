@@ -4,6 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { sequelize } from './db';
 import userRouter from './routers/user.router';
+import groupRouter from './routers/group.router';
+import './models/associations';
 
 dotenv.config();
 
@@ -15,6 +17,7 @@ app.use(json());
 app.use(morgan('tiny'));
 
 app.use('/api', userRouter);
+app.use('/api', groupRouter);
 
 const start = async () => {
   try {

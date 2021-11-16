@@ -1,13 +1,12 @@
 import express from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 import { AutosuggestRequestSchema } from '../middlewares/validateAutosuggest';
-import userService from '../../services/user.service';
-import { IUserService } from '../../interfaces/user.interface';
+import userService, { UserService } from '../../services/user.service';
 
 class UserController {
-  service: IUserService;
+  service: UserService;
 
-  constructor(service: IUserService) {
+  constructor(service: UserService) {
     this.service = service;
   }
 
