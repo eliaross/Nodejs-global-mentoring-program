@@ -10,7 +10,7 @@ export const validateGroup = async (
   const schema = Joi.object({
     name: Joi.string().required(),
     permissions: Joi.array()
-      .valid(...Object.values(Permission))
+      .items(Joi.string().valid(...Object.values(Permission)))
       .optional()
   });
 
