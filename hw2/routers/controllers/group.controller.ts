@@ -81,8 +81,6 @@ class GroupController {
       return res.status(400).json({ message: 'No group id was provided' });
     }
 
-    console.log('usersIds', usersIds);
-
     const group = await this.service.addUsersToGroup(id, usersIds);
 
     res.status(200).json({ message: 'Success', group });
