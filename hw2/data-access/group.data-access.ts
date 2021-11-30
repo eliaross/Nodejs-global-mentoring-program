@@ -16,7 +16,7 @@ export class GroupDataAccess {
 
       return group;
     } catch (err) {
-      console.log(err.message);
+      throw new Error(err.message);
     }
   }
 
@@ -36,7 +36,7 @@ export class GroupDataAccess {
 
       return newGroup;
     } catch (err) {
-      console.log(err.message);
+      throw new Error(err.message);
     }
   }
 
@@ -52,7 +52,7 @@ export class GroupDataAccess {
 
       return updatedGroup;
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   }
 
@@ -62,7 +62,7 @@ export class GroupDataAccess {
 
       return deletedRows;
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   }
 
@@ -72,7 +72,7 @@ export class GroupDataAccess {
 
       return users;
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   }
 
@@ -90,7 +90,7 @@ export class GroupDataAccess {
 
       return groupWithUsers;
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   }
 }
