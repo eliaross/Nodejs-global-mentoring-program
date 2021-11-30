@@ -1,11 +1,11 @@
 import { v4 as uuid } from 'uuid';
-import userDataAccess from '../data-access/user.data-access';
-import { IDataAccess, IUser } from '../interfaces/user.interface';
+import userDataAccess, { UserDataAccess } from '../data-access/user.data-access';
+import { IUser } from '../interfaces/user.interface';
 
-class UserService {
-  dataAccess: IDataAccess;
+export class UserService {
+  dataAccess: UserDataAccess;
 
-  constructor(dataAccessObj: IDataAccess) {
+  constructor(dataAccessObj: UserDataAccess) {
     this.dataAccess = dataAccessObj;
   }
 

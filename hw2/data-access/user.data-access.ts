@@ -1,17 +1,18 @@
 import { User } from '../models/user.model';
 import { Op } from 'sequelize';
-import { IDataAccess, IUser, ModelType } from '../interfaces/user.interface';
+import { IUser } from '../interfaces/user.interface';
+import { Group } from '../models/group.model';
 
-class UserDataAccess implements IDataAccess {
-  model: ModelType;
+export class UserDataAccess {
+  model: typeof User;
 
-  constructor(userModel: ModelType) {
+  constructor(userModel: typeof User) {
     this.model = userModel;
   }
 
   async getById(id: string) {
     try {
-      const user = await this.model.findByPk(id);
+      const user = await this.model.findByPk(id, { include: [{ model: Group, as: 'groups' }] });
 
       return user;
     } catch (err) {
