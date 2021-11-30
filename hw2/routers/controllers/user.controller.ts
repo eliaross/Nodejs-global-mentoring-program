@@ -12,7 +12,7 @@ class UserController {
 
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = req.params.id;
+      const { id: userId } = req.params;
 
       if (!userId) {
         return res.status(400).json({ message: 'No user id was provided' });
@@ -47,7 +47,7 @@ class UserController {
 
   async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = req.params.id;
+      const { id: userId } = req.params;
       const newData = req.body;
 
       const [rowsUpdated, updatedData] = await this.service.updateUser(userId, newData);
@@ -68,7 +68,7 @@ class UserController {
 
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = req.params.id;
+      const { id: userId } = req.params;
       const isDeleted = await this.service.deleteUser(userId);
 
       if (!isDeleted) {

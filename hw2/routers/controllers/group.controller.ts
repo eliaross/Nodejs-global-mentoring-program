@@ -10,7 +10,7 @@ class GroupController {
 
   async getGroupById(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.params.id;
+      const { id } = req.params;
 
       if (!id) {
         return res.status(400).json({ message: 'No group id was provided' });
@@ -45,7 +45,7 @@ class GroupController {
 
   async updateGroup(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.params.id;
+      const { id } = req.params;
       const newData = req.body;
 
       const [rowsUpdated, updatedData] = await this.service.updateGroup(id, newData);
@@ -66,7 +66,7 @@ class GroupController {
 
   async deleteGroup(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.params.id;
+      const { id } = req.params;
       const isDeleted = !!(await this.service.deleteGroup(id));
 
       if (isDeleted) {
@@ -96,7 +96,7 @@ class GroupController {
   async addUser(req: Request, res: Response, next: NextFunction) {
     try {
       const { usersIds } = req.body;
-      const id = req.params.id;
+      const { id } = req.params;
 
       if (!id) {
         return res.status(400).json({ message: 'No group id was provided' });
