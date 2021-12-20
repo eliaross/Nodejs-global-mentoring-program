@@ -16,7 +16,7 @@ export class UserDataAccess {
 
       return user;
     } catch (err) {
-      console.log(err.message);
+      throw new Error(err.message);
     }
   }
 
@@ -26,7 +26,7 @@ export class UserDataAccess {
 
       return newUser;
     } catch (err) {
-      console.log(err.message);
+      throw new Error(err.message);
     }
   }
 
@@ -42,7 +42,7 @@ export class UserDataAccess {
 
       return updatedUser;
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   }
 
@@ -58,7 +58,7 @@ export class UserDataAccess {
 
       return deletedUser;
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   }
 
@@ -75,7 +75,7 @@ export class UserDataAccess {
 
       return users;
     } catch (err) {
-      console.log(err);
+      throw new Error(err.message);
     }
   }
 }
