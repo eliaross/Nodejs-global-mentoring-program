@@ -1,23 +1,22 @@
 import express, { json } from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { sequelize } from './db';
 import userRouter from './routers/user.router';
 import groupRouter from './routers/group.router';
+import authRouter from './routers/auth.router';
 import './models/associations';
 import { apiLogger } from './routers/middlewares/loggers/apiLogger';
 import logger from './routers/middlewares/loggers/logger';
 import handleError from './routers/middlewares/loggers/handleError';
+import { PORT } from './config';
 
-dotenv.config();
-
-const PORT = process.env.PORT || 8000;
 const app = express();
 
 app.use(cors());
 app.use(json());
 app.use(apiLogger);
 
+app.use('/api', authRouter);
 app.use('/api', userRouter);
 app.use('/api', groupRouter);
 
