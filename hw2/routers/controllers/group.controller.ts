@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import groupService, { GroupService } from '../../services/group.service';
 
-class GroupController {
+export class GroupController {
   service: GroupService;
 
   constructor(service: GroupService) {
@@ -13,16 +13,19 @@ class GroupController {
       const { id } = req.params;
 
       if (!id) {
-        return res.status(400).json({ message: 'No group id was provided' });
+        res.status(400);
+        return res.json({ message: 'No group id was provided' });
       }
 
       const group = await this.service.getGroupById(id);
 
       if (!group) {
-        return res.status(400).json({ message: 'No group was found' });
+        res.status(400);
+        return res.json({ message: 'No group was found' });
       }
 
-      res.status(200).json({ message: 'Success', group });
+      res.status(200);
+      res.json({ message: 'Success', group });
     } catch (err) {
       return next({ error: err.message, method: 'getGroupById', params: req.params });
     }
@@ -34,10 +37,12 @@ class GroupController {
       const group = await this.service.createGroup(data);
 
       if (!group) {
-        return res.status(400).json({ message: 'Client error' });
+        res.status(400);
+        return res.json({ message: 'Client error' });
       }
 
-      res.status(200).json({ message: 'Success', group });
+      res.status(200);
+      res.json({ message: 'Success', group });
     } catch (err) {
       return next({ error: err.message, method: 'createGroup', params: req.body });
     }
@@ -51,10 +56,12 @@ class GroupController {
       const [rowsUpdated, updatedData] = await this.service.updateGroup(id, newData);
 
       if (!rowsUpdated) {
-        return res.status(400).json({ message: 'Client error' });
+        res.status(400);
+        return res.json({ message: 'Client error' });
       }
 
-      res.status(200).json({ message: 'Success', group: updatedData[0] });
+      res.status(200);
+      res.json({ message: 'Success', group: updatedData[0] });
     } catch (err) {
       return next({
         error: err.message,
@@ -67,13 +74,15 @@ class GroupController {
   async deleteGroup(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const isDeleted = !!(await this.service.deleteGroup(id));
+      const isDeleted = await this.service.deleteGroup(id);
 
-      if (isDeleted) {
-        return res.status(400).json({ message: 'No group was found or deleted' });
+      if (!isDeleted) {
+        res.status(400);
+        return res.json({ message: 'No group was found or deleted' });
       }
 
-      res.status(200).json({ message: 'Group was succesfully deleted' });
+      res.status(200);
+      res.json({ message: 'Group was succesfully deleted' });
     } catch (err) {
       return next({ error: err.message, method: 'deleteGroup', params: req.params });
     }
@@ -84,10 +93,12 @@ class GroupController {
       const groups = await this.service.getAllGroups();
 
       if (!groups) {
-        return res.status(400).json({ message: 'No groups found' });
+        res.status(400);
+        return res.json({ message: 'No groups found' });
       }
 
-      res.status(200).json({ message: 'Success', groups });
+      res.status(200);
+      res.json({ message: 'Success', groups });
     } catch (err) {
       return next({ error: err.message, method: 'getAllGroups' });
     }
@@ -99,12 +110,14 @@ class GroupController {
       const { id } = req.params;
 
       if (!id) {
-        return res.status(400).json({ message: 'No group id was provided' });
+        res.status(400);
+        return res.json({ message: 'No group id was provided' });
       }
 
       const group = await this.service.addUsersToGroup(id, usersIds);
 
-      res.status(200).json({ message: 'Success', group });
+      res.status(200);
+      res.json({ message: 'Success', group });
     } catch (err) {
       return next({
         error: err.message,
