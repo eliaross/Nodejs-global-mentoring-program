@@ -43,7 +43,7 @@ export class GroupService {
     logServiceInfo('GroupService - deleteGroup', { id });
     const isDeleted = await this.groupDataAccess.deleteGroup(id);
 
-    return isDeleted[0];
+    return isDeleted > 0;
   }
 
   async getAllGroups() {

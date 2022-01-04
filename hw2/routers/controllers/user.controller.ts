@@ -3,7 +3,7 @@ import { ValidatedRequest } from 'express-joi-validation';
 import { AutosuggestRequestSchema } from '../middlewares/validateAutosuggest';
 import userService, { UserService } from '../../services/user.service';
 
-class UserController {
+export class UserController {
   service: UserService;
 
   constructor(service: UserService) {
@@ -15,16 +15,19 @@ class UserController {
       const { id: userId } = req.params;
 
       if (!userId) {
-        return res.status(400).json({ message: 'No user id was provided' });
+        res.status(400);
+        return  res.json({ message: 'No user id was provided' });
       }
 
       const user = await this.service.getUserById(userId);
 
       if (!user) {
-        return res.status(400).json({ message: 'No user was found' });
+        res.status(400);
+        return res.json({ message: 'No user was found' });
       }
 
-      res.status(200).json({ message: 'Success', user });
+      res.status(200);
+      res.json({ message: 'Success', user });
     } catch (err) {
       return next({ error: err.message, method: 'getUserById', params: req.params });
     }
@@ -36,10 +39,12 @@ class UserController {
       const user = await this.service.setUser(userData);
 
       if (!user) {
-        return res.status(400).json({ message: 'Client error' });
+        res.status(400);
+        return  res.json({ message: 'Client error' });
       }
 
-      res.status(200).json({ message: 'Success', user });
+      res.status(200);
+      res.json({ message: 'Success', user });
     } catch (err) {
       return next({ error: err.message, method: 'createUser', params: req.body });
     }
@@ -53,10 +58,12 @@ class UserController {
       const [rowsUpdated, updatedData] = await this.service.updateUser(userId, newData);
 
       if (!rowsUpdated) {
-        return res.status(400).json({ message: 'Client error' });
+        res.status(400);
+        return res.json({ message: 'Client error' });
       }
 
-      res.status(200).json({ message: 'Success', user: updatedData[0] });
+      res.status(200);
+      res.json({ message: 'Success', user: updatedData[0] });
     } catch (err) {
       return next({
         error: err.message,
@@ -72,10 +79,12 @@ class UserController {
       const isDeleted = await this.service.deleteUser(userId);
 
       if (!isDeleted) {
-        return res.status(400).json({ message: 'No user was found or deleted' });
+        res.status(400);
+        return res.json({ message: 'No user was found or deleted' });
       }
 
-      res.status(200).json({ message: 'User was succesfully deleted' });
+      res.status(200);
+      return res.json({ message: 'User was succesfully deleted' });
     } catch (err) {
       return next({ error: err.message, method: 'deleteUser', params: req.params });
     }
@@ -93,7 +102,8 @@ class UserController {
         Number(limit)
       );
 
-      res.status(200).json({ message: 'Success', autoSuggestions });
+      res.status(200);
+      res.json({ message: 'Success', autoSuggestions });
     } catch (err) {
       return next({ error: err.message, method: 'getAutoSuggestUsers', params: req.query });
     }
