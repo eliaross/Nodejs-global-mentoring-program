@@ -10,6 +10,16 @@ export class UserDataAccess {
     this.model = userModel;
   }
 
+  async getByLogin(login: string) {
+    try {
+      const user = await this.model.findOne({ where: { login } });
+
+      return user;
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
   async getById(id: string) {
     try {
       const user = await this.model.findByPk(id, { include: [{ model: Group, as: 'groups' }] });
