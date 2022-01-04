@@ -1,4 +1,4 @@
-import { Group } from "../models/group.model";
+import { Group } from '../models/group.model';
 
 export interface IGroup {
   id: string;

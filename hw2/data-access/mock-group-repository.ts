@@ -1,5 +1,5 @@
-import { GroupRepository, IGroup } from "../interfaces/group.interface";
-import { Group } from "../models/group.model";
+import { GroupRepository, IGroup } from '../interfaces/group.interface';
+import { Group } from '../models/group.model';
 
 export default class GroupMockRepository implements GroupRepository {
   model: any;
